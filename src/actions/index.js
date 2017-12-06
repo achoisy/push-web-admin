@@ -5,10 +5,12 @@ import {
   UNAUTH_USER,
   MSG_LIST,
   ACTIVE_ITEM,
-  ADD_MESSAGE,
   MODAL_MESSAGE,
   AXIOS_ERROR,
   LOADING,
+  FILES_UPLOAD,
+  FILE_DEL,
+  RESET_FILE,
 } from './types';
 
 const ROOT_URL = 'http://localhost:3090';
@@ -26,7 +28,8 @@ export function authError(error) {
   };
 }
 
-export function modaleMessage(msg, link) {
+export function modaleMessage(msg, link = '') {
+  // if !link then modal close else push to history
   return {
     type: MODAL_MESSAGE,
     payload: { msg, link },
@@ -51,6 +54,26 @@ export function loading(onOff) {
   return {
     type: LOADING,
     payload: onOff,
+  };
+}
+
+export function uploadedFiles(fileUrl) { // Add image to array of image
+  return {
+    type: FILES_UPLOAD,
+    payload: fileUrl,
+  };
+}
+
+export function deleteFile(filename) {
+  return {
+    type: FILE_DEL,
+    payload: filename,
+  };
+}
+
+export function resetFile() {
+  return {
+    type: RESET_FILE,
   };
 }
 
@@ -99,22 +122,24 @@ export function fetchMessage() {
         });
       })
       .catch((err) => {
-        dispatch(axiosError(err));
+        dispatch(modaleMessage(err));
       });
   };
 }
 
 export function addMessage(newMessage) {
-  return (dispatch, getState) => {
+  return (dispatch) => {
+    dispatch(loading(true));
     instance.post('/message', newMessage)
       .then((res) => {
         console.log('res', res);
+        dispatch(resetFile());
         dispatch(loading(false));
         dispatch(modaleMessage('Nouveau message cree et en attente de validation.', 'message'));
       })
       .catch((err) => {
         dispatch(loading(false));
-        dispatch(modaleMessage(JSON.stringify(err), 'message/new'));
+        dispatch(modaleMessage(JSON.stringify(err)));
       });
   };
 }

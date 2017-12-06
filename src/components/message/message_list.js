@@ -31,7 +31,7 @@ class Message extends Component {
 
   render() {
     return (
-      <Grid >
+      <Grid padded>
         <Grid.Row columns={3}>
           <Grid.Column>
             <h3>

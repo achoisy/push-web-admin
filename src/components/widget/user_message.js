@@ -20,6 +20,26 @@ class ModalExampleCloseConfig extends Component {
       this.buttonOnClick();
     }
   }
+
+  addLink(link){
+    if (!link) {  // If no link then close modal
+      return (
+        <Button
+          positive
+          content="Ok"
+        />
+      );
+    } else {
+      return ( // else push to history
+        <Link
+          className="ui positive button large"
+          to={`/${link}`}>
+          Ok
+        </Link>
+      );
+    }
+  }
+
   render() {
     const { modal, link } = this.props;
 
@@ -42,11 +62,7 @@ class ModalExampleCloseConfig extends Component {
             role="button"
             tabIndex={0}
           >
-            <Link
-              className="ui positive button large"
-              to={`/${link}`}>
-              Ok
-            </Link>
+            {this.addLink(link)}
           </div>
         </Modal.Actions>
       </Modal>

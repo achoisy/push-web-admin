@@ -9,11 +9,8 @@ import logo from './logo.png';
 
 
 class Signin extends Component {
-
   static renderLoginField({ login, password, error }) {
-console.log('renderLoginField', error);
-
-    return(
+    return (
       <Segment stacked>
         <Form.Input
           {...login.input}

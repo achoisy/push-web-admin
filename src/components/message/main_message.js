@@ -18,7 +18,7 @@ const MainMessage = (props) => {
 
   return (
     <div>
-      <Dimmer.Dimmable as={Segment} dimmed={loading}>
+      <Dimmer.Dimmable dimmed={loading}>
         <Dimmer active={loading} inverted>
           <Loader>Loading</Loader>
         </Dimmer>

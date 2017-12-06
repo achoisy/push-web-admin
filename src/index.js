@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import { Router, Route, Switch } from 'react-router-dom';
-import createHistory from 'history/createBrowserHistory'
+import { Router, Route } from 'react-router-dom';
+import createHistory from 'history/createBrowserHistory';
 import reduxThunk from 'redux-thunk';
 
 import './index.css';
@@ -27,5 +27,6 @@ ReactDOM.render(
       <Route path="/" component={App} />
     </Router>
   </Provider>
-  , document.getElementById('root'));
+  , document.getElementById('root'),
+);
 registerServiceWorker();
